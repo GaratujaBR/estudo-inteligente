@@ -109,10 +109,10 @@ export const DiagnosticoSchema = z.object({
 
 export const EditalIASchema = z.object({
   concurso: z.object({
-    nome: z.string().min(1),
-    banca: z.string().min(1),
-    data_prova: z.string().optional(),
-  }).optional(),
+    nome: z.string().min(1).nullable().optional(),
+    banca: z.string().min(1).nullable().optional(),
+    data_prova: z.string().nullable().optional(),
+  }).nullable().optional(),
   disciplinas: z.array(z.object({
     nome: z.string().min(1),
     topicos: z.array(z.string().min(1)),

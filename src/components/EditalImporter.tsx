@@ -92,7 +92,7 @@ export default function EditalImporter({ onClose }: EditalImporterProps) {
 
   const importarDados = (dados: ReturnType<typeof EditalIASchema.parse>) => {
     // Preenche concurso se a IA extraiu e ainda não está preenchido
-    if (dados.concurso && !edital?.concurso.nome) {
+    if (dados.concurso?.nome && dados.concurso?.banca && !edital?.concurso.nome) {
       setConcurso({
         id: edital?.concurso.id || crypto.randomUUID(),
         nome: dados.concurso.nome,
