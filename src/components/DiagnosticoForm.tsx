@@ -3,6 +3,7 @@ import { useEdital } from '../hooks/useEdital';
 import { calcularPesosFinais, getMultiplicador, calcularTempoSemana } from '../utils/tempoCalc';
 import { calcularPesoPareto } from '../utils/paretoCalc';
 import { type NivelAluno } from '../types';
+import { ClipboardList } from 'lucide-react';
 
 const LABELS_COBERTURA = [
   '1 — Não explico nada sem consulta',
@@ -20,7 +21,7 @@ const LABELS_PERFORMANCE = [
   '5 — >85% de acerto',
 ];
 
-export default function DiagnosticoForm() {
+export default function DiagnosticoForm({ onIrParaGrade }: { onIrParaGrade?: () => void }) {
   const { edital, updateDisciplina } = useEdital();
   const { setRespostas, getNivel, getRespostas } = useDiagnostico();
 
@@ -156,6 +157,16 @@ export default function DiagnosticoForm() {
           </table>
         </div>
       </div>
+
+      {onIrParaGrade && (
+        <button
+          onClick={onIrParaGrade}
+          className="w-full py-3 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+        >
+          <ClipboardList size={16} />
+          Gerar minha grade de estudos
+        </button>
+      )}
     </div>
   );
 }

@@ -36,7 +36,7 @@ function AppInner() {
         return (
           <div className="space-y-6">
             <EditalForm />
-            <DiagnosticoForm />
+            <DiagnosticoForm onIrParaGrade={() => setAbaAtiva('grade')} />
             <div className="pb-2">
               <button
                 onClick={handleExportar}
