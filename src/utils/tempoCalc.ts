@@ -13,9 +13,11 @@ export function getMultiplicador(nivel: NivelAluno): number {
 }
 
 export function calcularPesosFinais(disciplinas: Disciplina[]): Disciplina[] {
+  const todosParetoZero = disciplinas.every((d) => d.peso_pareto === 0);
+
   const comPesos = disciplinas.map((d) => ({
     ...d,
-    peso_final: d.peso_pareto * getMultiplicador(d.nivel_aluno),
+    peso_final: (todosParetoZero ? 1 : d.peso_pareto) * getMultiplicador(d.nivel_aluno),
   }));
 
   const totalPeso = comPesos.reduce((sum, d) => sum + d.peso_final, 0);
