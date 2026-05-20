@@ -34,7 +34,8 @@ export default function ParetoImporter({ onClose }: ParetoImporterProps) {
     setErro('');
     let parsed: unknown;
     try {
-      parsed = JSON.parse(json);
+      const limpo = json.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+      parsed = JSON.parse(limpo);
     } catch {
       setErro('O JSON está mal formatado. Verifique se copiou a resposta completa da IA.');
       return;
