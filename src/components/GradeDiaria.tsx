@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { ClipboardList, RefreshCw, Frown, Check, ChevronRight } from 'lucide-react';
+import { ClipboardList, RefreshCw, Frown, Check, ChevronRight, Table } from 'lucide-react';
 import { useEdital } from '../hooks/useEdital';
 import { useGrade } from '../hooks/useGrade';
 import { useRegistrarErro } from '../hooks/useRegistrarErro';
 import { gerarGrade, estimarSemanas } from '../utils/gradeGenerator';
 import ZonaBadge from './ZonaBadge';
 import { type SessaoGrade } from '../types';
+import { exportarGradeCSV } from '../utils/exportGrade';
 
 function formatMinutos(min: number): string {
   if (min < 60) return `${min}min`;
@@ -295,13 +296,22 @@ export default function GradeDiaria() {
         </div>
       )}
 
-      <button
-        onClick={handleGerarGrade}
-        className="w-full py-2 border border-gray-200 rounded-lg text-xs text-gray-400 hover:bg-gray-50 flex items-center justify-center gap-1.5"
-      >
-        <RefreshCw size={12} />
-        Regenerar grade
-      </button>
+      <div className="flex gap-2">
+        <button
+          onClick={handleGerarGrade}
+          className="flex-1 py-2 border border-gray-200 rounded-lg text-xs text-gray-400 hover:bg-gray-50 flex items-center justify-center gap-1.5"
+        >
+          <RefreshCw size={12} />
+          Regenerar grade
+        </button>
+        <button
+          onClick={() => exportarGradeCSV(sessoes)}
+          className="flex-1 py-2 border border-gray-200 rounded-lg text-xs text-gray-400 hover:bg-gray-50 flex items-center justify-center gap-1.5"
+        >
+          <Table size={12} />
+          Exportar grade (.csv)
+        </button>
+      </div>
     </div>
   );
 }
